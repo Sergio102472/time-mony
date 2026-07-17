@@ -1,0 +1,38 @@
+$timemony_exchanger $mol_page
+	title \TimeMony Crypto Exchange (TM)
+	tools /
+		<= refresh $mol_button
+			click <= refresh_click
+			title \🔄
+	body /
+		<= swap_form $mol_form
+			fields /
+				<= from_section $mol_row
+					sub /
+						<= from_currency $mol_select
+							value? <=> from_currency?
+							options <= currency_options
+						<= from_amount $mol_number
+							value? <=> from_amount?
+							hint \Сумма для отправки
+				<= arrow $mol_icon_arrow_right
+				<= to_section $mol_row
+					sub /
+						<= to_currency $mol_select
+							value? <=> to_currency?
+							options <= currency_options
+						<= to_amount $mol_text
+							text <= estimated_to
+				<= tm_buffer $mol_card
+					title \TM Буфер (время)
+					body /
+						<= tm_details $mol_text
+							text <= tm_info
+				<= fee_info $mol_text
+					text <= commission_text
+		<= action $mol_button
+			title \Конвертировать сейчас (зафиксировать секунду)
+			click <= perform_swap
+			enabled <= is_valid
+		<= result $mol_text
+			text <= swap_status
